@@ -60,6 +60,7 @@ function tmpLog($msg) {
 $remote = $_SERVER['REMOTE_ADDR'];
 $headers = apache_request_headers();
 $event = isset($headers['X-Github-Event']) ? $headers['X-Github-Event'] : false;
+tmpLog($event);
 if (!$event ||
 		!isset($_POST['payload']) ||
 		!preg_match('/\.github\.com$/', gethostbyaddr($remote))) {
