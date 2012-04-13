@@ -92,7 +92,7 @@ else {
 	elseif ($event == 'pull_request') {
 		$number = $payload->number;
 		$pull = $payload->pull_request;
-		$subject .= 'Pull request #' . $pull->number . ' ' . $pull->action . ' (' . $pull->title . ')';
+		$subject .= 'Pull request #' . $pull->number . ' ' . $payload->action . ' (' . $pull->title . ')';
 		$body = 'See ' . $pull->html_url . "\n\n"
 			. $pull->title . "\n\n"
 			. $pull->body;
