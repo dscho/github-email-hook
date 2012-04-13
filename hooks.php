@@ -1,5 +1,11 @@
 <?
 
+/*
+ * This is a helper to subscribe index.php to the GitHub API repository events.
+ * It basically remedies the fact that the web hook is not subscribable by the
+ * admin web UI provided by GitHub.
+ */
+
 if (!defined('HTTP_METH_PATCH'))
 	define('HTTP_METH_PATCH', http_request_method_register('PATCH'));
 

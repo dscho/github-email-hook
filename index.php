@@ -1,13 +1,9 @@
 <?
 /*
- * This hook was registered using
+ * This hook was registered using hooks.php.
  *
- * curl -i -u "user:password" https://api.github.com/hub \
- * -Fhub.mode=subscribe \
- * -Fhub.topic=https://github.com/USER/REPO/events/EVENT \
- * -Fhub.callback=SOMEURL
- *
- * See https://github.com/github/github-services/issues/166
+ * It requires php-mail to be installed and pecl-http. I cannot properly verify the signature
+ * that signs the payload with our secret since the pecl-hash module failed to compile here.
  */
 require_once "Mail.php";
 
