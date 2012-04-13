@@ -14,8 +14,8 @@ require_once "Mail.php";
 function sendNotification($subject, $body) {
 	global $mail_from, $mail_host, $mail_username, $mail_password, $owner;
 	$from = 'GitHub <' . $mail_from . '>';
-	$reply_to = 'msysgit@googlegroups.com';
 	$to = $owner == 'msysgit' ? 'msysgit@googlegroups.com' : 'johannes.schindelin@gmx.de';
+	$reply_to = $to;
 
 	$headers = array ('From' => $from,
 		'To' => $to,
