@@ -15,7 +15,7 @@ function sendNotification($subject, $body) {
 	global $mail_from, $mail_host, $mail_username, $mail_password;
 	$from = 'GitHub <' . $mail_from . '>';
 	$reply_to = 'msysgit@googlegroups.com';
-	$to = 'Johannes Schindelin <johannes.schindelin@gmx.de>';
+	$to = 'msysgit@googlegroups.com';
 
 	$headers = array ('From' => $from,
 		'To' => $to,
