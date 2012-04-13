@@ -59,17 +59,21 @@ function list_hooks() {
 		print('<td>' . $id . '</td>');
 		print('<td>' . ($hook->active ? '' : 'not ') . 'active</td>');
 		print('<td>' . join(' ', $hook->events) . '</td>');
-		print('<td><a href="' . $hook->config->url. '">' . htmlentities($hook->config->url) . '</a></td>');
-		print('<td>');
-		form_header('hook-' . $id, 'edit', $id);
-		print('<input type="submit" value="Edit" />');
-		print('</form>');
-		print('</td>');
-		print('<td>');
-		form_header('delete-hook-' . $id, 'delete', $id);
-		print('<input type="submit" value="Delete" />');
-		print('</form>');
-		print('</td>');
+		if ($hook->name != 'web')
+			print('<td colspan="3">' . $hook->name . ' hooks not editable here</td>');
+		else {
+			print('<td><a href="' . $hook->config->url. '">' . htmlentities($hook->config->url) . '</a></td>');
+			print('<td>');
+			form_header('hook-' . $id, 'edit', $id);
+			print('<input type="submit" value="Edit" />');
+			print('</form>');
+			print('</td>');
+			print('<td>');
+			form_header('delete-hook-' . $id, 'delete', $id);
+			print('<input type="submit" value="Delete" />');
+			print('</form>');
+			print('</td>');
+		}
 		print('</tr>');
 	}
 	print('</table>');
