@@ -4,6 +4,9 @@
  * This is a helper to subscribe index.php to the GitHub API repository events.
  * It basically remedies the fact that the web hook is not subscribable by the
  * admin web UI provided by GitHub.
+ *
+ * It requires pecl_http to work, since it needs to send custom HTTP requests
+ * (e.g. with verbs like PATCH...)
  */
 
 if (!defined('HTTP_METH_PATCH'))
