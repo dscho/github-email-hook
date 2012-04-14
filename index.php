@@ -105,6 +105,10 @@ else {
 		$subject .= 'Pushed ' . $payload->size . ' commit' . ($payload->size > 1 ? 's' : '') . ' to ' . $ref;
 		$body = 'See ' . $repository->html_url;
 	}
+	elseif ($event == 'watch') {
+		$subject .= $payload->sender->login . ' ' . $payload->action . ' watching ' . $repo_name;
+		$body = 'See ' . $repository->html_url;
+	}
 	else {
 		$subject .= 'Received event "' . $event . '"';
 		ob_start();
