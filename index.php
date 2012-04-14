@@ -63,8 +63,7 @@ function tmpLog($msg) {
 }
 
 $remote = $_SERVER['REMOTE_ADDR'];
-$headers = apache_request_headers();
-$event = isset($headers['X-Github-Event']) ? $headers['X-Github-Event'] : false;
+$event = isset($_SERVER['HTTP_X_GITHUB_EVENT']) ? $_SERVER['HTTP_X_GITHUB_EVENT'] : false;
 tmpLog($event);
 if (!$event || !preg_match('/\.github\.com$/', gethostbyaddr($remote))) {
 	include('hooks.php');
