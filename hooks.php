@@ -93,7 +93,7 @@ function edit_hook($id) {
 	if ($id)
 		$hook = send_request(HTTP_METH_GET, 'hooks/' . $id, '');
 	else
-		$hook = (object)array('active' => '1', 'events' => array('pull_request'), 'secret' => '');
+		$hook = (object)array('active' => '1', 'events' => array('push', 'issues', 'issue_comment', 'commit_comment', 'pull_request', 'gollum', 'watch', 'download', 'fork', 'fork_apply', 'member', 'public'), 'secret' => '');
 	print('Edit hook ' . ($id ? $id : '') . '<br />');
 	form_header($id ? 'edit-hook-' . $id : 'add-hook', $id ? 'patch' : 'add', $id);
 	print('<dl>');
