@@ -7,6 +7,12 @@
  */
 require_once "Mail.php";
 
+function tmpWrite($text) {
+	$file = fopen('/tmp/github-notifier.log', 'a');
+	fwrite($file, $text);
+	fclose($file);
+}
+
 function sendNotification($subject, $body) {
 	global $mail_from, $mail_host, $mail_username, $mail_password, $owner;
 	$from = 'GitHub <' . $mail_from . '>';
@@ -26,9 +32,9 @@ function sendNotification($subject, $body) {
 	$mail = $smtp->send($to, $headers, $body);
 
 	if (PEAR::isError($mail)) {
-		echo("<p>" . $mail->getMessage() . "</p>");
+		tmpWrite($mail->getMessage() . "\n");
 	} else {
-		echo("<p>Message successfully sent!</p>");
+		tmpWrite("Message successfully sent!\n");
 	}
 }
 
@@ -57,9 +63,7 @@ function tmpLog($msg) {
 	}
 	$msg .= ob_get_clean();
 	ob_end_flush();
-	$file = fopen('/tmp/github-notifier.log', 'a');
-	fwrite($file, $msg);
-	fclose($file);
+	tmpWrite($msg);
 }
 
 $remote = $_SERVER['REMOTE_ADDR'];
