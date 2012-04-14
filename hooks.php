@@ -114,7 +114,7 @@ function patch_hook($id, $event, $url, $secret, $active) {
 	$body = json_encode(array(
 		'name' => 'web',
 		'config' => array(
-			'content_type' => 'form',
+			'content_type' => 'json',
 			'url' => $url,
 			'secret' => $secret
 		),
@@ -128,7 +128,7 @@ function add_hook($event, $url, $secret, $active) {
 	$body = json_encode(array(
 		'name' => 'web',
 		'config' => array(
-			'content_type' => 'form',
+			'content_type' => 'json',
 			'url' => $url,
 			'secret' => $secret
 		),
