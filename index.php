@@ -44,8 +44,17 @@ function tmpLog($msg) {
 	var_dump($_POST);
 	print("SERVER\n");
 	var_dump($_SERVER);
-	if (isset($_POST['payload']))
+	if (isset($_POST['payload'])) {
+		print("PAYLOAD\n");
 		var_dump(json_decode($_POST['payload']));
+	}
+	else {
+		$body = http_get_request_body();
+		if ($body != '') {
+			print("BODY\n");
+			var_dump(json_decode($body));
+		}
+	}
 	$msg .= ob_get_clean();
 	ob_end_flush();
 	$file = fopen('/tmp/github-notifier.log', 'a');
@@ -57,13 +66,11 @@ $remote = $_SERVER['REMOTE_ADDR'];
 $headers = apache_request_headers();
 $event = isset($headers['X-Github-Event']) ? $headers['X-Github-Event'] : false;
 tmpLog($event);
-if (!$event ||
-		!isset($_POST['payload']) ||
-		!preg_match('/\.github\.com$/', gethostbyaddr($remote))) {
+if (!$event || !preg_match('/\.github\.com$/', gethostbyaddr($remote))) {
 	include('hooks.php');
 }
 else {
-	$payload = json_decode($_POST['payload']);
+	$payload = json_decode(isset($_POST['payload']) ? $_POST['payload'] : http_get_request_body());
 	$repository = $payload->repository;
 	$owner = $repository->owner->login;
 	if ($owner != 'msysgit' && $owner != 'dscho')
