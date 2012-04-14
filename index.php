@@ -113,6 +113,11 @@ else {
 		$subject .= $payload->sender->login . ' ' . $payload->action . ' watching ' . $repo_name;
 		$body = 'See ' . $repository->html_url;
 	}
+	elseif ($event == 'commit_comment') {
+		$subject .= 'Commit comment by ' . $payload->sender->login . ' in ' . $repo_name;
+		$body = 'See ' . $payload->comment->html_url . "\n\n"
+			. $payload->comment->body;
+	}
 	else {
 		$subject .= 'Received event "' . $event . '"';
 		ob_start();
