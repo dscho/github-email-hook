@@ -118,6 +118,11 @@ else {
 		$body = 'See ' . $payload->comment->html_url . "\n\n"
 			. $payload->comment->body;
 	}
+	elseif ($event == 'download') {
+		$subject .= 'Download added to ' . $repo_name . ': ' . $payload->download->name;
+		$body = 'See ' . $payload->download->html_url . "\n\n"
+			. $payload->sender->login . ' added the download "' . $payload->download->name . '" to ' . $repo_name;
+	}
 	else {
 		$subject .= 'Received event "' . $event . '"';
 		ob_start();
