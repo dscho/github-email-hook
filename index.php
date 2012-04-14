@@ -105,8 +105,12 @@ else {
 		$subject .= 'Pushed ' . $payload->size . ' commit' . ($payload->size > 1 ? 's' : '') . ' to ' . $ref;
 		$body = 'See ' . $repository->html_url;
 	}
-	else
-		exit('invalid event: ' + $event);
+	else {
+		$subject .= 'Received event "' . $event . '"';
+		ob_start();
+		var_dump($payload);
+		$body = "Unhandled event:\n\n" . ob_get_clean();
+	}
 
 	include('mail-settings.php');
 	sendNotification($subject, $body);
