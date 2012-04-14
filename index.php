@@ -91,7 +91,7 @@ else {
 		$pull = $payload->pull_request;
 		$subject .= 'Pull request #' . $pull->number . ' ' . $payload->action . ' (' . $pull->title . ')';
 		$body = 'See ' . $pull->html_url . "\n\n"
-			. $pull->title . "\n\n"
+			. $payload->sender->login . ' ' . $payload->action . ' ' . $pull->title . "\n\n"
 			. $pull->body;
 	}
 	elseif ($event == 'push') {
