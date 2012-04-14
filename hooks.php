@@ -58,7 +58,7 @@ function list_hooks() {
 	$result = send_request(HTTP_METH_GET, 'hooks', '');
 	print('Hooks:<br />');
 	print('<table border="1">');
-	print('<tr><th>Id</th><th>Active</th><th>Event</th><th>URL</th><th>Edit</th><th>Delete</th></tr>');
+	print('<tr><th>Id</th><th>Active</th><th>Events</th><th>URL</th><th>Edit</th><th>Delete</th></tr>');
 	foreach ($result as $hook) {
 		$id = $hook->id;
 		print('<tr>');
@@ -102,7 +102,7 @@ function edit_hook($id) {
 		print('<dt><strong>Updated at</strong></dt><dd>' . $hook->updated_at . '</dd>');
 	}
 	print('<dt><strong>Active</strong></dt><dd><input type="checkbox" name="active" ' . ($hook->active ? 'checked ' : '') . '" /></dd>');
-	print('<dt><strong>Event</strong></dt><dd><input type="text" name="event" value="' . join(' ', $hook->events) . '" /></dd>');
+	print('<dt><strong>Event</strong></dt><dd><input type="text" name="event" size="80" value="' . join(' ', $hook->events) . '" /></dd>');
 	print('<dt><strong>URL</strong></dt><dd><input type="text" name="url" size="80" value="' . $hook->config->url . '" /></dd>');
 	print('<dt><strong>Secret</strong></dt><dd><input type="text" name="secret" value="' . $hook->config->secret . '" /></dd>');
 	print('</dl>');
@@ -118,7 +118,7 @@ function patch_hook($id, $event, $url, $secret, $active) {
 			'url' => $url,
 			'secret' => $secret
 		),
-		'events' => array($event),
+		'events' => split(' ', $event),
 		'active' => $active
 	));
 	send_request(HTTP_METH_PATCH, 'hooks/' . $id, $body);
@@ -132,7 +132,7 @@ function add_hook($event, $url, $secret, $active) {
 			'url' => $url,
 			'secret' => $secret
 		),
-		'events' => array($event),
+		'events' => split(' ', $event),
 		'active' => $active
 	));
 	send_request(HTTP_METH_POST, 'hooks', $body);
