@@ -123,6 +123,10 @@ else {
 		$body = 'See ' . $payload->download->html_url . "\n\n"
 			. $payload->sender->login . ' added the download "' . $payload->download->name . '" to ' . $repo_name;
 	}
+	elseif ($event == 'fork') {
+		$subject .= $repo_name . ' was forked by ' . $payload->sender->login;
+		$body = 'See ' . $payload->forkee->clone_url;
+	}
 	else {
 		$subject .= 'Received event "' . $event . '"';
 		ob_start();
