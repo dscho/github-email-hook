@@ -23,11 +23,16 @@ function sendNotification($subject, $body) {
 		'To' => $to,
 		'Reply-to' => $reply_to,
 		'Subject' => $subject);
-	$smtp = Mail::factory('smtp',
-		array ('host' => $mail_host,
-			'auth' => true,
-			'username' => $mail_username,
-			'password' => $mail_password));
+	if (isset($mail_username))
+		$smtp = Mail::factory('smtp',
+			array ('host' => $mail_host,
+				'auth' => true,
+				'username' => $mail_username,
+				'password' => $mail_password));
+	else
+		$smtp = Mail::factory('smtp',
+			array ('host' => $mail_host,
+				'auth' => false));
 
 	$mail = $smtp->send($to, $headers, $body);
 
