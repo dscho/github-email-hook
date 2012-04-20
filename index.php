@@ -14,9 +14,9 @@ function tmpWrite($text) {
 }
 
 function sendNotification($subject, $body) {
-	global $mail_from, $mail_host, $mail_username, $mail_password, $owner;
+	global $mail_to, $mail_from, $mail_host, $mail_username, $mail_password, $owner;
 	$from = 'GitHub <' . $mail_from . '>';
-	$to = $owner == 'msysgit' ? 'msysgit@googlegroups.com' : 'johannes.schindelin@gmx.de';
+	$to = $mail_to;
 	$reply_to = $to;
 
 	$headers = array ('From' => $from,
@@ -76,8 +76,6 @@ else {
 	$payload = json_decode(isset($_POST['payload']) ? $_POST['payload'] : http_get_request_body());
 	$repository = $payload->repository;
 	$owner = $repository->owner->login;
-	if ($owner != 'msysgit' && $owner != 'dscho')
-		exit('Invalid owner: ' . $owner);
 	$subject = '[github] ';
 	$repo_name = $repository->owner->login . '/' . $repository->name;
 
