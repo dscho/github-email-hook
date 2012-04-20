@@ -100,6 +100,8 @@ else {
 			. $comment->body;
 	}
 	elseif ($event == 'pull_request') {
+		if ($payload->action == 'synchronize')
+			exit('Do not notify about pull request updates such as when it stops being auto-mergable');
 		$number = $payload->number;
 		$pull = $payload->pull_request;
 		$subject .= 'Pull request #' . $pull->number . ' ' . $payload->action . ' (' . $pull->title . ')';
