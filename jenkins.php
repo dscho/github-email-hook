@@ -76,6 +76,7 @@ else {
 	$repo_name = $owner . '/' . $repository->name;
 	$ref = $payload->ref;
 
+	sleep(5); // grace period
 	include('jenkins-settings.php');
 	if (isset($jenkins_url)) {
 		tmpWrite("Trigger $jenkins_url");
